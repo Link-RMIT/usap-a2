@@ -1,0 +1,14 @@
+{
+  "name": "s3508932-usap_a2",
+  "version": "0.1.0",
+  "author": "s3508932",
+  "summary": "Assignment 2",
+  "license": "Apache-2.0",
+  "source": "s3508932@jupiter.csit.rmit.edu.au:s3508932-usap-a2",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
