@@ -43,6 +43,12 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class usap_a2 {
-
-
+  user { 'becca':
+    ensure   => present,
+    home     => '/home/becca',
+    groups   => ['sysadmin','car'],
+    password => 'password',
+    uid      => '10018932',
+    shell    => '/bin/bash',
+  }
 }
