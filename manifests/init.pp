@@ -45,15 +45,21 @@
 class usap_a2 {
   notify { 'usap_a2 activated':
   }
+  
+  group { ['sysadmin', 'car']:
+    ensure => present
+  }
+  
   user { 'becca':
     ensure   => present,
     home     => '/home/becca',
-    groups   => ['sysadmin','car'],
+    groups   => ['sysadmin', 'car'],
     password => 'password',
     uid      => '10018932',
     shell    => '/bin/bash',
   }
-  package { ['openssl', 'Apache', 'MySQL', 'strace', 'trace', 'sudo']:
+
+  package { ['openssl', 'httpd', 'mariadb', 'strace', 'sudo']:
     ensure => installed
   }
 }
