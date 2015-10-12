@@ -43,6 +43,8 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class usap_a2 {
+  notify { 'usap_a2 activated':
+  }
   user { 'becca':
     ensure   => present,
     home     => '/home/becca',
@@ -50,5 +52,8 @@ class usap_a2 {
     password => 'password',
     uid      => '10018932',
     shell    => '/bin/bash',
+  }
+  package { ['openssl', 'Apache', 'MySQL', 'strace', 'trace', 'sudo']:
+    ensure => installed
   }
 }
