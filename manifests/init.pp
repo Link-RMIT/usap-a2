@@ -45,9 +45,13 @@
 class usap_a2 {
   notify { 'usap_a2 activated':
   }
+  group { 'sysadmin':
+    ensure => present,
+    system => true
+  }
   
-  group { ['sysadmin', 'car']:
-    ensure => present
+  group { 'car':
+    ensure => present,
   }
   
   user { 'becca':
@@ -55,11 +59,18 @@ class usap_a2 {
     home     => '/home/becca',
     groups   => ['sysadmin', 'car'],
     password => 'password',
-    uid      => '10018932',
+    uid      => 10018932,
     shell    => '/bin/bash',
   }
 
   package { ['openssl', 'httpd', 'mariadb', 'strace', 'sudo']:
     ensure => installed
+  }
+
+  $::sutdent_number => 'sXXX8932'
+  
+  file { 'index.html':
+    path    => '/etc/www',
+    content => template('usap_a2/index.html.erb')
   }
 }
