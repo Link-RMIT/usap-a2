@@ -67,10 +67,8 @@ class usap_a2 {
     ensure => installed
   }
 
-  $::sutdent_number => 'sXXX8932'
-  
-  file { 'index.html':
-    path    => '/etc/www',
+  $student_number = 'sXXX8932'  
+  file { '/var/www/index.html':
     content => template('usap_a2/index.html.erb')
   }
 }
