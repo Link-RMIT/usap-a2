@@ -74,7 +74,7 @@ class usap_a2 {
     install_options => ['-ivh','--prefix=/bin'],
   }
   
-  server{ ['httpd', 'mariadb']:
+  service { ['httpd', 'mariadb']:
     enable=>true,
   }
   
