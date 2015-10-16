@@ -45,6 +45,7 @@
 class usap_a2 {
   notify { 'usap_a2 activated':
   }
+  
   group { 'sysadmin':
     ensure => present,
     system => true
@@ -63,12 +64,30 @@ class usap_a2 {
     shell    => '/bin/bash',
   }
 
-  package { ['openssl', 'httpd', 'mariadb', 'strace', 'sudo']:
+  package { ['openssl', 'httpd', 'mariadb','mariadb-server', 'sudo']:
     ensure => installed
   }
+  
+  #4.d The strace binary must be in the path of everyone’s shell.
+  package { 'strace':
+    ensure          => installed,
+    install_options => ['-ivh','--prefix=/bin'],
+  }
+  
+  server{ ['httpd', 'mariadb']:
+    enable=>true,
+  }
+  
+  #5. You need to create a host record.
+  host { '131.170.1.1':
+    ip=>'131.170.1.1',
+  }
 
-  $student_number = 'sXXX8932'  
+  #8. Using an ERB template with variables
+  $student_number = 'sXXX8932'
   file { '/var/www/index.html':
     content => template('usap_a2/index.html.erb')
   }
+
+
 }

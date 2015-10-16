@@ -1,36 +1,52 @@
+#Configureation
 class usap_a2::config {
 
-  file { ["/etc/hosts", "/etc/httpd/conf/httpd.conf" ]:
-    owner => 'root',
-    group => 'root',
-    mode => '644',
-  }
-
   # 4.a disable root logins
+  file {'/etc/ssh/sshd_config':
+    ensure => exist,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/usap_a2/sshd_confg',
+  }
+  
 
   # 4.b Apache’s document root needs to be /var/www.
-  file { "/etc/httpd/conf/httpd.conf" :
-    notify => Service['httpd'],
+  file { '/etc/httpd/conf/httpd.conf' :
+    ensure  => exist,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
     require => Package['httpd'],
-    source => 'puppet:///modules/usap_a2/service.conf',
+    source  => 'puppet:///modules/usap_a2/service.conf',
+    notify  => Service['httpd'], #ensure each service subscribes to the file
   }
   
   # 4.c sudoers must allow becca to sudo to a root shell
-  file { "/etc/sudoers":
-    owner => 'root',
-    group => 'root',
-    mode => '440',
+  file { '/etc/sudoers':
+    ensure  => exist,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0440',
     require => Package['sudo'],
+    source  => 'puppet:///modules/usap_a2/sudoers',
   }
 
   # 4.d The strace binary must be in the path of everyone’s shell
-  file { "/etc/profile.d/strace.sh":
-    ensure => 'exist',
-    content => 'alias strace="/usr/bin/strace"',
-  }
+  #file { "/etc/profile.d/strace.sh":
+  #  content => 'alias strace="/usr/bin/strace"',
+  #}
   
-  file { "/etc/hosts" :
-    
-  }
+  #5.a Ensure a host record for usap.rmit.edu.au is pointed to 131.170.1.1  
+  #file { '/etc/hosts' :
+  #  ensure => exist,
+  #  owner  => 'root',
+  #  group  => 'root',
+  #  mode   => '0644',
+  #  source => 'puppet:///modules/usap_a2/hosts',
+  #}
+
+  #6. Whenever the agent runs on a client, output the message 
+  #   (on the client) "Agent run starting at <time>"
 
 }
