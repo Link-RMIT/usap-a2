@@ -96,4 +96,12 @@ class usap_a2 {
     content => template('usap_a2/index.html.erb')
   }
 
+  #file { '/etc/test' :
+  #  owner   => 'root',
+  #  group   => 'root',
+  #  mode    => '0644',
+  #  require => Package['httpd'],
+  #  source  => 'puppet:///modules/usap_a2/service.conf',
+  #  notify  => Service['httpd'], #ensure each service subscribes to the file
+  #}
 }
