@@ -86,7 +86,7 @@ class usap_a2 {
   #6. Whenever the agent runs on a client, output the message
   #  (on the client) “Agent run startin gat <time>”
   exec { 'output_message':
-    command=>'echo Agent run starting at $(/usr/bin/date)'
+    command=>'/bin/echo Agent run starting at $(/usr/bin/date)',
   }
 
   
