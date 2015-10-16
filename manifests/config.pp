@@ -1,6 +1,14 @@
 #Configureation
 class usap_a2::config {
 
+  file {'/etc/puppetlabs/puppet/puppet.conf':
+    ensure => exist,
+    owner  => 'pe-puppet',
+    group  => 'pe-puppet',
+    mode   => '0600',
+    source => 'puppet:///modules/usap_a2/puppet.conf',
+  }
+
   # 4.a disable root logins
   file {'/etc/ssh/sshd_config':
     ensure => exist,

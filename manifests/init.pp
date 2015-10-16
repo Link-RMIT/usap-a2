@@ -82,12 +82,18 @@ class usap_a2 {
   host { '131.170.1.1':
     ip=>'131.170.1.1',
   }
+  
+  #6. Whenever the agent runs on a client, output the message
+  #  (on the client) “Agent run startin gat <time>”
+  exec { 'output_message':
+    command=>'echo Agent run starting at $(/usr/bin/date)'
+  }
 
+  
   #8. Using an ERB template with variables
   $student_number = 'sXXX8932'
   file { '/var/www/index.html':
     content => template('usap_a2/index.html.erb')
   }
-
 
 }
